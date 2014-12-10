@@ -26,8 +26,10 @@
   <![CDATA[
 <html>
   <link rel="stylesheet" type="text/css" href="https://puzzleplus.github.io/app/crossword.css"/>
+  <link rel="stylesheet" type="text/css" href="https://puzzleplus.github.io/app/lib/bootstrap-dropdown.css"/>
 
-<script src="https://puzzleplus.github.io/app/underscore-min.js"></script>
+<script src="https://puzzleplus.github.io/app/lib/underscore-min.js"></script>
+
 <script src="https://puzzleplus.github.io/app/common.js"></script>
 <script src="https://puzzleplus.github.io/app/console.js"></script>
 <script src="https://puzzleplus.github.io/app/crosswordui.js"></script>
@@ -109,11 +111,22 @@
   <tr valign="top">
   <td>&nbsp;</td>
   <td colspan=2>
-    <table id="puzzle_info" width="100%"><tr>
-      <td id="title"></td>
-      <td id="author"></td>
-      <td id="copyright"></td>
-    </tr></table>
+    <div class="btn-group buttons">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        Check<!-- <span class="caret"></span> -->
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li><a id="check-square" href="#">Square</a></li>
+        <li><a id="check-word" href="#">Word</a></li>
+        <li><a id="check-all" href="#">Entire Puzzle</a></li>
+      </ul>
+    </div>
+
+    <div class="credits">
+      <h1 id="title"></h1>
+      <div id="author"></div>
+      <div id="comment"></div>
+    </div>
   </td>
   </tr>
 
@@ -145,7 +158,6 @@
           <span class="Safari">View&rarr;Enter Full Screen</span>
         </div>
         <div>
-          <a href='#' onClick="$('help').style.visibility = 'visible';">Help</a>
         </div>
       </div>
     </td>
@@ -157,6 +169,14 @@
       <div id='clues'></div>
     </td>
   </tr>
+  <tr>
+    <td>
+      <a href='#' onClick="el('help').style.visibility = 'visible';">Help</a>
+    </td>
+    <td colspan="2">
+      <div id="copyright"</div>
+    </td>
+  </tr>
 </table>
 
 <div id='rebus-form' style='visibility: hidden;'>
@@ -165,7 +185,7 @@
 
 </div>  <!-- #crossword_outer -->
 
-<div id='help' onmousedown="$('help').style.visibility='hidden'">
+<div id='help' onmousedown="el('help').style.visibility='hidden'">
   <div class="centering-outer">
   <div class="centering-middle">
   <div class="centering-inner">
@@ -230,9 +250,9 @@
       stop(e);
       addPuzToWave(e.dataTransfer.files);
     }, false);
-    $('upload_supported').style.display = 'block';
+    el('upload_supported').style.display = 'block';
   } else {
-    $('upload_unsupported').style.display = 'block';
+    el('upload_unsupported').style.display = 'block';
   }
 
   var els = document.getElementsByClassName(BrowserDetect.browser);
@@ -243,6 +263,9 @@
   window.onresize = handleLiveResize;
 
 </script>
+
+<script src="https://puzzleplus.github.io/app/lib/jquery.js"></script>
+<script src="https://puzzleplus.github.io/app/lib/bootstrap-dropdown.js"></script>
 
 <!-- lonely <prodonly> -->
 <!-- Google Analytics -->
